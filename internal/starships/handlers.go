@@ -7,8 +7,9 @@ import (
 
 	models "starships/internal/starships/models"
 
-	"github.com/leeprovoost/go-rest-api-template/pkg/health"
-	"github.com/leeprovoost/go-rest-api-template/pkg/status"
+	"starships/pkg/health"
+	"starships/pkg/status"
+
 	log "github.com/sirupsen/logrus"
 )
 
