@@ -16,6 +16,5 @@ The `api-service` app will bind itself to the port that you have defined in your
 export ENV=LOCAL
 export VERSION=VERSION
 export PORT=3001
-export FIXTURES=./fixtures.json
 go build && ./api-service
 ```
