@@ -2,6 +2,8 @@
 
 ## How to run
 
+Note: It starts up but the handlers are not finished. The design took too long!
+
 `go run main.go` works fine if you have a single file or a script you're working on, but once you have a more complex project with lots of files then you'll have to start using the proper go build tool and run the compiled executable:
 
 ```bash
