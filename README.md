@@ -1,4 +1,4 @@
-# go-rest-api-template
+# Imperial Starship Management
 
 ## How to run
 
