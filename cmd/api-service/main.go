@@ -4,19 +4,19 @@ import (
 	"os"
 	"strings"
 
-	starships "starships/internal/starships"
+	"starships/internal/starships"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/unrolled/render"
 )
 
 func init() {
 	if strings.ToUpper(os.Getenv("ENV")) == "LOCAL" {
-		log.SetFormatter(&log.TextFormatter{})
-		log.SetLevel(log.DebugLevel)
+		logrus.SetFormatter(&logrus.TextFormatter{})
+		logrus.SetLevel(logrus.DebugLevel)
 	} else {
-		log.SetFormatter(&log.JSONFormatter{})
-		log.SetLevel(log.InfoLevel)
+		logrus.SetFormatter(&logrus.JSONFormatter{})
+		logrus.SetLevel(logrus.InfoLevel)
 	}
 }
 
@@ -32,33 +32,26 @@ func main() {
 	// ===========================================================================
 	// Read version information
 	// ===========================================================================
-	// version, err := vparse.ParseVersionFile("VERSION")
-	// if err != nil {
-	// 	log.WithFields(log.Fields{
-	// 		"env":  env,
-	// 		"err":  err,
-	// 		"path": os.Getenv("VERSION"),
-	// 	}).Fatal("Can't find a VERSION file")
-	// 	return
-	// }
-	log.WithFields(log.Fields{
+	logrus.WithFields(logrus.Fields{
 		"env":     env,
 		"path":    os.Getenv("VERSION"),
 		"version": version,
 	}).Info("Loaded VERSION file")
+
 	// ===========================================================================
 	// Initialise data storage
 	// ===========================================================================
-	userStore := starships.NewStarshipService(starships.CreateMockDataSet())
+	starshipStore := starships.CreateStarshipService(starships.CreateMockDataSet())
+
 	// ===========================================================================
 	// Initialise application context
 	// ===========================================================================
 	appEnv := starships.AppEnv{
-		Render:    render.New(),
-		Version:   version,
-		Env:       env,
-		Port:      port,
-		UserStore: userStore,
+		Render:        render.New(),
+		Version:       version,
+		Env:           env,
+		Port:          port,
+		StarshipStore: starshipStore,
 	}
 	// ===========================================================================
 	// Start application

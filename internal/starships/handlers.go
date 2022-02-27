@@ -46,7 +46,7 @@ func GetStarshipHandler(w http.ResponseWriter, req *http.Request, appEnv AppEnv)
 	//TBD
 }
 
-func NewStarshipHandler(w http.ResponseWriter, req *http.Request, appEnv AppEnv) {
+func CreateStarshipHandler(w http.ResponseWriter, req *http.Request, appEnv AppEnv) {
 	decoder := json.NewDecoder(req.Body)
 	var u models.Starship
 	err := decoder.Decode(&u)
@@ -72,7 +72,7 @@ func NewStarshipHandler(w http.ResponseWriter, req *http.Request, appEnv AppEnv)
 		Value:    u.Value,
 		Status:   u.Status,
 	}
-	starship, _ = appEnv.UserStore.NewStarship(starship)
+	starship, _ = appEnv.StarshipStore.CreateStarship(starship)
 	appEnv.Render.JSON(w, http.StatusCreated, starship)
 }
 

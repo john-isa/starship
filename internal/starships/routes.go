@@ -17,7 +17,8 @@ var routes = Routes{
 	Route{"Getstarships", "GET", "/imperialship/{id}", ListAllStarshipsHandler},
 	Route{"Getstarships", "GET", "/imperialship/{filterBy}/{value}", ListStarshipsHandler},
 	Route{"Getstarships", "GET", "/imperialship/{id}", GetStarshipHandler},
-	Route{"Createstarships", "POST", "/imperialship", NewStarshipHandler},
+
+	Route{"Createstarships", "POST", "/imperialship", CreateStarshipHandler},
 	Route{"Updatestarships", "PUT", "/imperialship/{pid:[0-9]+}", UpdateUserHandler},
 	Route{"Deletestarships", "DELETE", "/imperialship/{pid:[0-9]+}", DeleteUserHandler},
 }

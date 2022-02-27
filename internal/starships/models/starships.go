@@ -27,8 +27,9 @@ type Armament struct {
 type StarshipStorage interface {
 	ListStarships(filterBy string, value string) ([]Starship, error)
 	ListAllStarships() ([]Starship, error)
-	GetStarships(i int) (Starship, error)
-	NewStarship(u Starship) (Starship, error)
+	GetStarship(i int) (Starship, error)
+
+	CreateStarship(u Starship) (Starship, error)
 	UpdateStarship(u Starship) (Starship, error)
 	DeleteStarship(i int) error
 }
