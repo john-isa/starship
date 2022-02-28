@@ -9,7 +9,7 @@ paths:
       summary: Get the whole list of starships.
       description: Retrieves a complete list of starships from the Imperial Inventory.
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
