@@ -74,12 +74,9 @@ components:
   schemas:
     allEntries:
       # ALL: an empty json structure to indicate that the whole data set is required.
-      type: object
-      required: false
-      properties:
-        set:
-          type: boolean
-          example: true
+      schema:
+        required: false
+        $ref: "#/components/schemas/starship"
     newEntry:
       # NEW: a populated json structure to append to the Inventory.
       schema:
