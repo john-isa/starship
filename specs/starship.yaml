@@ -1,0 +1,171 @@
+openapi: "3.1.0"
+info:
+  author: John Isailofski
+  title: Imperial Starship Inventory
+  version: "0.0.1"
+paths:
+  /imperialship:
+    get:
+      summary: Get the whole list of starships.
+      description: Retrieves a complete list of starships from the Imperial Inventory.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/allEntries"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/status"
+    post:
+      summary: Add a new starship.
+      description: Creates a new entry for a newly commissioned/accquired starship and adss it to the Imperial Inventory.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/newEntry"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/status"
+    put:
+      summary: Update the details of an existing starship.
+      description: Retrieves a complete list of starships from the Imperial Inventory.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateEntry"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/status"
+    delete:
+      summary: Remove an existing entry in the Imperial Starship Inventory.
+      description: Remove an existing entry in the Imperial Starship Inventory.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/deleteEntry"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/status"
+
+components:
+  schemas:
+    allEntries:
+      # ALL: an empty json structure to indicate that the whole data set is required.
+      type: object
+      required: false
+      properties:
+        set:
+          type: boolean
+          example: true
+    newEntry:
+      # NEW: a populated json structure to append to the Inventory.
+      schema:
+        $ref: "#/components/schemas/starship"
+    updateEntry:
+      # Update: a json structure to update an existing entry in the Inventory.
+      type: object
+      properties:
+        set:
+          type: boolean
+        example: true
+    deleteEntry:
+      # Delete: an id value to remove an existing entry from the Inventory.
+      schema:
+        ref: "#/components/schemas/identifier"
+      properties:
+        set:
+          type: boolean
+        example: true
+    identifier:
+      # Identifier (ID): specifies a distinct entry in the Inventory.
+      type: integer
+      min: 0
+      example: 0
+    armament:
+      type: array
+      items:
+        name:
+          type: string
+          maxLength: 256
+        quantity:
+          type: integer
+          min: 0
+    starship:
+      type: object
+      properties:
+        id:
+          schema:
+            ref: "#/components/schemas/identifier"
+        name:
+          type: string
+          maxLength: 256
+        designation:
+          type: string
+          maxLength: 14 # eg: ISP-1000-001 (Imperial Starship Patrol-class-id)
+        class:
+          type: string
+          enum: [
+              "scout", # highly mobile, no weapons or shield, but long range sensors
+              "explorer", # as per scout with minimal weapons and strong shielding
+              "survey", # as per explorer but with extra fine sensor package
+              "patrol", # as per explorer but with upgraded weapons
+              "defender", # as per patrol but with super powered shields
+              "attack", # as per defender but with stronger and more weapons packages
+              "battlestar", # as per attack but ten times bigger and 100 fold incread in power to mass
+              "galaxy", # work twenty battlestars in weapons
+              "controller", # worth ten galaxy class in weapons and fifty galaxy class in shields
+            ]
+          example: "patrol"
+        armament:
+          schema:
+            ref: "#/components/schemas/armament"
+        crew:
+          type: integer
+          min: 0
+        image:
+          type: string
+          maxLength: 2048
+        value:
+          type: number
+          min: 0.0
+          example: 100000.00
+        status:
+          type: string
+          enum: ["active", "inactive", "damaged", "destroyed", "lost"]
+          example: "active"
+        active:
+          type: boolean
+          example: true
+    status:
+      # Status of the html request
+      type: object
+      properties:
+        code:
+          type: string
+          maxLength: 3
+        description:
+          type: string
+          maxLength: 256
